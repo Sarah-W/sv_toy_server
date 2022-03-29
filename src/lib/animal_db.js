@@ -1,6 +1,9 @@
 import { MongoClient } from 'mongodb'
 
-const MONGO_URL = import.meta.env.VITE_MONGO_URL
+// const MONGO_URL = import.meta.env.VITE_MONGO_URL
+import 'dotenv/config'
+import { ObjectID } from 'bson'
+const MONGO_URL = process.env.MONGO_URL
 
 if (!MONGO_URL) {
   throw("please put your MONGO_URL in the environment")
@@ -15,8 +18,8 @@ export const animals_collection = db.then((_) => {return _.db("animals").collect
 
 export const get_animals = async () => (await animals_collection).find({}).toArray()
 
-export const get_animal = async (_id) => (await animals_collection).findOne({_id})
+export const get_animal = async (_id) => (await animals_collection).findOne({_id: new ObjectID(_id)})
 
 export const put_animal = async (animal) => (await animals_collection).insertOne(animal)
 
-export const delete_animal = async (_id) => (await animals_collection).deleteOne({_id})
+export const delete_animal = async (_id) => (await animals_collection).deleteOne({_id: new ObjectID(_id)})
