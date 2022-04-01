@@ -1,6 +1,5 @@
 # sv-toy server
 
-# toy_server
 This repo contains a response to a code challenge.
 
 Clone the repo, and copy in the .env file.    
