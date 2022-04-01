@@ -11,7 +11,7 @@ export async function put({ request }) {
   try {
     const auth = request.headers.get("authorization");
 
-    if (!(auth === TOKEN)) {
+    if (auth !== TOKEN) {
       return {
         status: 403,
         body: {

@@ -22,7 +22,7 @@
   };
 
   const validAnimal = (animal) => {
-    //cheap validator for front end purposes only.
+    //cheap validator for front end purposes only as jsonvalidator contains node shit
     return !!Name && !!Type && (Type != "Tiger" || !!TigerType);
   };
 
