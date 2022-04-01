@@ -10,6 +10,9 @@
   let Type
   let TigerType
 
+  let magic_word
+  let result = null
+
   const newAnimal = (Name,Type,TigerType) => {
     let new_animal={Name,Type}
     if (Type === "Tiger"){new_animal["Tiger Type"]=TigerType}
@@ -22,26 +25,35 @@
   }
 
   $: new_animal = newAnimal(Name,Type,TigerType)
-
   $: valid_animal = validAnimal(new_animal)
 
   const addAnimal = async () => {
     const put_options = {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json',"authorization":"Please"},
+      headers: { 'Content-Type': 'application/json',"authorization":magic_word},
       body: JSON.stringify(new_animal)
     }
-    await fetch('api',put_options)
-      .then(d=>console.log(d.json()))
-      .then(getAnimals)
+    result = await fetch('api',put_options).then(res=>res.json())
+      getAnimals()
       Name = null
-      Type = null
       TigerType = null
   }
 
+  const deleteAnimal = async (e)=>{
+    result = await fetch(`api/${e.detail._id}`,{method:`DELETE`,headers:{"authorization":magic_word}})
+      .then(res=>res.json())
+    getAnimals()
+  }
+
+$: console.log(result)
 </script>
 
 <div><h1>Animals!</h1></div>
+
+<div>
+  <label for="magicword"> Magic Word:</label>
+  <input type="password" id="magicword" name="magicword" placeholder="" bind:value={magic_word}>
+</div>
 <div>
   <p>Add a new animal </p>
   <label for="name"> Name:</label>
@@ -61,15 +73,20 @@
      >
      Add {Name ? Name+"!" :"Someone?"}  
   </button>
-  <p>Doubleclick an animal to delete it.</p>
+  <p>Double-Click an animal to delete it.</p>
 </div>
 <div class = animals>
   {#await a_promise_of_animals then animals}
     {#each animals as animal}
-    <Animal {animal} on:delete={getAnimals}></Animal>
+    <Animal {animal} on:delete={deleteAnimal}></Animal>
     {/each}
   {/await}
-</div> 
+</div>
+{#if (result && !result?.acknowledged)}
+  <div>
+    {result.message}  
+  </div>
+{/if}  
 
 <style lang=scss>
   div{

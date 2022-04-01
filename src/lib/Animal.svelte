@@ -3,14 +3,9 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
-  const byebye = async ()=>{
-    fetch(`api/${animal._id}`,{method:`DELETE`})
-      .then(d=>dispatch('delete',{e:d.json()}))
-  }
-
 </script>
 
-<div class =animal on:dblclick={byebye} >  
+<div class =animal on:dblclick={()=>dispatch('delete',{_id:animal._id})} >  
   <p>Name: {animal.Name}</p>
   <p>Type: {animal.Type}</p>
   {#if animal['Tiger Type']}
