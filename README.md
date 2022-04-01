@@ -1,40 +1,21 @@
-# create-svelte
+# sv-toy server
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+# toy_server
+This repo contains a response to a code challenge.
 
-## Creating a project
+Clone the repo, and copy in the .env file.    
+Install with
 
-If you're seeing this, you've probably already done this step. Congrats!
+```npm install```
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
+Then start the server.
 
-# create a new project in my-app
-npm init svelte@next my-app
-```
+```npm start```
+  
+***
 
-> Note: the `@next` is temporary
+Having done the coding challenge at https://github.com/springload/frontend-starter-kit/blob/main/docs/node-coding-test.md I decided to replicate it in Svelte, just to see how hard it would be. (Conclusion: Moderately, but I am a pretty novice back-end dev.)
 
-## Developing
+This version does have a front end - mostly so I could get at the animal._id values in a really easy way. So, here it is, an API, with a really basic front end, not in React, but in Svelte.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+It is deployed at https://sv-toy-server.vercel.app/
